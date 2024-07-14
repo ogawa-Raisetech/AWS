@@ -22,7 +22,7 @@
 
 ## 今日までに作成したAWSリソースの利用料の内容を見積もる（URLで共有）
 
- - 見積は[こちら](https://calculator.aws/#/estimate?id=b6e83eaa70a3dd11bf60691da88e439782420d3c){:target="_blank"}
+ <a href="https://calculator.aws/#/estimate?id=b6e83eaa70a3dd11bf60691da88e439782420d3c" target="_blank">こちら</a>
 
 
 ## マネジメントコンソールから、現在の利用料を確認
