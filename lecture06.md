@@ -22,11 +22,11 @@
 
 ## 今日までに作成したAWSリソースの利用料の内容を見積もる（URLで共有）
 
- - 見積は[こちら](https://calculator.aws/#/estimate)
+ - 見積は[こちら](https://calculator.aws/#/estimate?id=b6e83eaa70a3dd11bf60691da88e439782420d3c)
 
 
 ## マネジメントコンソールから、現在の利用料を確認
- - パブリックIPアドレスの使用が無料枠を超えていたためVPCの料金が発生している。
+ - VPCが無料枠内の使用を超えていたため料金が発生している。
  - EC2は無料枠内で使用できており料金は発生しなかった。
  ![利用料](/image/lecture06/picture5.png)
  ![利用料内訳](/image/lecture06/picture6.png)
