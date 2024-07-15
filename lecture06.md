@@ -13,6 +13,10 @@
 
 ## CloudWatchアラームを使ってALBのアラームを設定しメール通知を確認
 
+  - CloudWatchアラームの設定
+  ![アラーム設定1](/image/lecture06/picture7.png)
+　![アラーム設定2](/image/lecture06/picture8.png)
+
 ### アラームとアクションを設定した状態で動作確認
   - Railsアプリケーションが使える状態の時：OK状態のメールが届く
   ![okmail](/image/lecture06/picture3.png)
@@ -22,7 +26,7 @@
 
 ## 今日までに作成したAWSリソースの利用料の内容を見積もる（URLで共有）
 
-- 見積は[こちら](https://calculator.aws/#/estimate?id=b6e83eaa70a3dd11bf60691da88e439782420d3c)
+- 見積は[こちら](https://calculator.aws/#/estimate?id=b99c14dd9e58ede5478496276600cf8ca30b22ec)
 
 
 ## マネジメントコンソールから、現在の利用料を確認
