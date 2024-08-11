@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: S3
+
+Resources:
+  testS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: lecture10-s3bucket
+      AccessControl: Private
+      # パブリックアクセスをすべて無効化
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      # バージョニング設定
+      VersioningConfiguration:
+        Status: Enabled
+

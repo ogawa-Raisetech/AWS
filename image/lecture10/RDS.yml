@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: RDS
+
+Resources: 
+  # サブネットグループ作成
+  RDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: For RDS
+      DBSubnetGroupName: lecture10-DBSubnetGroup
+      SubnetIds:
+      - !ImportValue PrivateSubnet1
+      - !ImportValue PrivateSubnet2
+      Tags:
+      - Key: Name
+        Value: lecture10-DBSubnetGroup
+
+ # RDSインスタンス作成
+  RDSDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceIdentifier: rdsdbinstance
+      Engine: mysql
+      MasterUsername: admin
+      MasterUserPassword: password
+      DBInstanceClass: db.t3.micro
+      VPCSecurityGroups:
+        - Ref: DBSecurityGroup
+      AvailabilityZone: ap-northeast-1a
+      Port: 3306
+      MultiAZ: false
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !ImportValue VPC
+      GroupDescription: for RDS
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 10.1.0.0/24
