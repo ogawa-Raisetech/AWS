@@ -1,19 +1,24 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: RDS
 
+Parameters: 
+ NameBase: 
+  Type: String
+  Default: lecture10
+
 Resources: 
   # サブネットグループ作成
   RDSSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupDescription: For RDS
-      DBSubnetGroupName: lecture10-DBSubnetGroup
+      DBSubnetGroupName: !Sub ${NameBase}-DBSubnetGroup
       SubnetIds:
       - !ImportValue PrivateSubnet1
       - !ImportValue PrivateSubnet2
       Tags:
       - Key: Name
-        Value: lecture10-DBSubnetGroup
+        Value: !Sub ${NameBase}-DBSubnetGroup
 
  # RDSインスタンス作成
   RDSDBInstance:
@@ -41,4 +46,4 @@ Resources:
         - IpProtocol: tcp
           FromPort: 3306
           ToPort: 3306
-          CidrIp: 10.1.0.0/24
+          SourceSecurityGroupId: !ImportValue EC2SecurityGroup
