@@ -1,6 +1,6 @@
 # 第10回課題
 ##  課題内容
-第5回課題で構築した以下構成図をCloudFormationで構築する
+第5回課題で構築した以下構成図をCloudFormationで構築してEC2からRDSへ接続する
 ![構成図](image/lecture10/picture1.png)
 
 ##  作成したテンプレートファイル

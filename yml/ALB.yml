@@ -62,8 +62,8 @@ Resources:
       SecurityGroups:
         - !Ref ALBSecurityGroup
       Subnets: 
-        - !ImportValue PublicSubnet1
-        - !ImportValue PublicSubnet2
+        - !ImportValue ap-northeast-1a-PublicSubnet1
+        - !ImportValue ap-northeast-1c-PublicSubnet2
 
  # リスナー設定
  ALBListener: 

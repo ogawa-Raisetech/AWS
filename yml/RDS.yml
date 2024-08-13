@@ -14,8 +14,8 @@ Resources:
       DBSubnetGroupDescription: For RDS
       DBSubnetGroupName: !Sub ${NameBase}-DBSubnetGroup
       SubnetIds:
-      - !ImportValue PrivateSubnet1
-      - !ImportValue PrivateSubnet2
+      - !ImportValue ap-northeast-1a-PrivateSubnet1
+      - !ImportValue ap-northeast-1c-PrivateSubnet2
       Tags:
       - Key: Name
         Value: !Sub ${NameBase}-DBSubnetGroup
@@ -46,4 +46,4 @@ Resources:
         - IpProtocol: tcp
           FromPort: 3306
           ToPort: 3306
-          SourceSecurityGroupId: !ImportValue EC2SecurityGroup
+          SourceSecurityGroupId: !ImportValue ap-northeast-1a-EC2SecurityGroup
