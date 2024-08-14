@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: RDS
+
+Parameters: 
+ NameBase: 
+  Type: String
+  Default: lecture10
+
+ RDSMasterUsername:
+    Description: "RDS Master User Name"
+    Type: String
+    MinLength: 8
+    MaxLength: 128
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+ RDSUserPassword:
+# パラメータ値をマスク
+    NoEcho: true
+    Description: "RDS Master User Password"
+    Type: String
+    MinLength: 8
+    MaxLength: 128
+    AllowedPattern: "[a-zA-Z0-9]*"
+
+Resources: 
+  # サブネットグループ作成
+  RDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: For RDS
+      DBSubnetGroupName: !Sub ${NameBase}-DBSubnetGroup
+      SubnetIds:
+      - !ImportValue ap-northeast-1a-PrivateSubnet1-ID
+      - !ImportValue ap-northeast-1c-PrivateSubnet2-ID
+      Tags:
+      - Key: Name
+        Value: !Sub ${NameBase}-DBSubnetGroup
+
+ # RDSインスタンス作成
+  RDSDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceIdentifier: rdsdbinstance
+      Engine: mysql
+      MasterUsername: !Ref RDSMasterUsername
+      MasterUserPassword: !Ref RDSUserPassword
+      DeletionProtection: false
+      DeleteAutomatedBackups: true
+      DBInstanceClass: db.t3.micro
+      VPCSecurityGroups:
+        - Ref: DBSecurityGroup
+      AvailabilityZone: ap-northeast-1a
+      Port: 3306
+      MultiAZ: false
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !ImportValue VPC-ID
+      GroupDescription: for RDS
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !ImportValue EC2SecurityGroup-ID

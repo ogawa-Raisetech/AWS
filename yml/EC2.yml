@@ -1,0 +1,97 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: EC2
+
+Parameters:
+ NameBase: 
+  Type: String
+  Default: lecture10
+
+ KeyName:
+  Description: The name of the EC2 Key Pair
+  Type: AWS::EC2::KeyPair::KeyName
+  ConstraintDescription: Must be the name of an existing EC2 Key Pair
+
+Resources: 
+ # SecurityGroup
+ EC2SecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Allow SSH and HTTP access
+    VpcId: !ImportValue VPC-ID
+    Tags:
+        - Key: Name
+          Value: !Sub ${NameBase}-ec2
+    # インバウンドルール
+    SecurityGroupIngress: 
+     # ssh
+     - IpProtocol: tcp
+       FromPort: 22
+       ToPort: 22
+       CidrIp: 119.229.77.103/32
+     
+     # HTTP
+     - IpProtocol: tcp
+       FromPort: 80
+       ToPort: 80
+       CidrIp: 0.0.0.0/0
+
+ # EC2
+ EC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      IamInstanceProfile: !Ref InstanceProfile
+      # Amazon Linux2
+      ImageId: ami-05b37ce701f85f26a
+      InstanceType: t2.medium
+      KeyName: !Ref KeyName
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: true
+        DeviceIndex: 0
+        GroupSet:
+        - !Ref EC2SecurityGroup
+        SubnetId: !ImportValue ap-northeast-1a-PublicSubnet1-ID
+      Tags:
+        - Key: Name
+          Value: !Sub ${NameBase}-EC2
+
+  # IAMロールの定義
+ Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:  !Sub ${NameBase}-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: S3AccessPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: s3:*
+                Resource: arn:aws:s3:::lecture10-s3bucket
+
+ # IAM Instance Profile
+ InstanceProfile:
+  Type: AWS::IAM::InstanceProfile
+  Properties: 
+    Roles: 
+      - !Ref Role
+
+Outputs: 
+ EC2Id: 
+  Description: EC2 instance ID in the VPC
+  Value: !Ref EC2
+  Export:
+   Name: EC2-ID
+
+ EC2SGId:
+  Description: SecurityGroupID of the EC2 in the VPC
+  Value: !Ref EC2SecurityGroup
+  Export:
+   Name: EC2SecurityGroup-ID
+

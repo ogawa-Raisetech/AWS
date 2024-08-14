@@ -1,0 +1,170 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: VPC
+
+Parameters: 
+ NameBase: 
+  Type: String
+  Default: lecture10
+
+Resources: 
+#VPC
+ myVPC:
+   Type: AWS::EC2::VPC
+   Properties:
+    CidrBlock: 10.1.0.0/16
+    EnableDnsSupport: true
+    EnableDnsHostnames: true
+    Tags:
+      - Key: Name
+        Value: !Sub ${NameBase}-vpc
+
+#subnet
+ PublicSubnet1:
+   Type: AWS::EC2::Subnet
+   Properties: 
+    AvailabilityZone: ap-northeast-1a
+    CidrBlock: 10.1.0.0/24
+    VpcId: !Ref myVPC 
+    Tags: 
+     - Key: Name
+       Value: !Sub ${NameBase}-Public1-subnet-a
+
+ PublicSubnet2:
+   Type: AWS::EC2::Subnet
+   Properties: 
+    AvailabilityZone: ap-northeast-1c
+    CidrBlock: 10.1.10.0/24
+    VpcId: !Ref myVPC 
+    Tags: 
+     - Key: Name
+       Value: !Sub ${NameBase}-Public2-subnet-c
+
+ PrivateSubnet1:
+   Type: AWS::EC2::Subnet
+   Properties: 
+    AvailabilityZone: ap-northeast-1a
+    CidrBlock: 10.1.20.0/24
+    VpcId: !Ref myVPC 
+    Tags: 
+     - Key: Name
+       Value: !Sub ${NameBase}-Private1-subnet-a
+
+ PrivateSubnet2:
+   Type: AWS::EC2::Subnet
+   Properties: 
+    AvailabilityZone: ap-northeast-1c
+    CidrBlock: 10.1.30.0/24
+    VpcId: !Ref myVPC 
+    Tags: 
+     - Key: Name
+       Value: !Sub ${NameBase}-Private2-subnet-c
+
+#Public routetable
+ PublicRouteTable: 
+   Type: AWS::EC2::RouteTable
+   Properties: 
+    VpcId: !Ref myVPC 
+    Tags: 
+      - Key: Name
+        Value: !Sub ${NameBase}-rtb-Public
+
+#Private routetable
+ PrivateRouteTable1: 
+  Type: AWS::EC2::RouteTable
+  Properties: 
+    VpcId: !Ref myVPC 
+    Tags: 
+      - Key: Name
+        Value: !Sub ${NameBase}-rtb-Private1-subnet-a
+
+ PrivateRouteTable2: 
+  Type: AWS::EC2::RouteTable
+  Properties: 
+    VpcId: !Ref myVPC 
+    Tags: 
+      - Key: Name
+        Value: !Sub ${NameBase}-rtb-Private2-subnet-c
+
+ # InternetGateway
+ InternetGateway: 
+  Type: AWS::EC2::InternetGateway
+  Properties:
+    Tags:
+      - Key: Name
+        Value: !Sub ${NameBase}-InternetGateway
+
+ # InternetGateway Attach
+ InternetGatewayAttachment: 
+  Type: AWS::EC2::VPCGatewayAttachment
+  Properties: 
+    InternetGatewayId: !Ref InternetGateway
+    VpcId: !Ref myVPC
+
+ # Routing
+ PublicRoute: 
+  Type: AWS::EC2::Route
+  Properties: 
+    RouteTableId: !Ref PublicRouteTable
+    DestinationCidrBlock: 0.0.0.0/0
+    GatewayId: !Ref InternetGateway
+
+# RouteTable Associate
+ PublicSubnet1RouteTableAssociation: 
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties: 
+    SubnetId: !Ref PublicSubnet1 
+    RouteTableId: !Ref PublicRouteTable
+
+ PublicSubnet2RouteTableAssociation: 
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties: 
+    SubnetId: !Ref PublicSubnet2 
+    RouteTableId: !Ref PublicRouteTable
+
+ PrivateSubnet1RouteTableAssociation: 
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties: 
+    SubnetId: !Ref PrivateSubnet1 
+    RouteTableId: !Ref PrivateRouteTable1
+
+ PrivateSubnet2RouteTableAssociation: 
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties: 
+    SubnetId: !Ref PrivateSubnet2
+    RouteTableId: !Ref PrivateRouteTable2
+
+Outputs:
+ VPCId:
+  Description: The ID of the VPC
+  Value: !Ref myVPC
+  Export:
+    Name: VPC-ID
+
+ PublicSubnet1Id:
+  Description: publicsubnet ID1 in VPC
+  Value: !Ref PublicSubnet1
+  Export:
+    Name: ap-northeast-1a-PublicSubnet1-ID
+
+ PublicSubnet2Id:
+  Description: publicsubnet ID2 in VPC
+  Value: !Ref PublicSubnet2
+  Export:
+    Name: ap-northeast-1c-PublicSubnet2-ID
+
+ PrivateSubnet1Id:
+  Description: PrivateSubnet ID1 in VPC
+  Value: !Ref PrivateSubnet1
+  Export:
+    Name: ap-northeast-1a-PrivateSubnet1-ID
+
+ PrivateSubnet2Id:
+  Description: PrivateSubnet ID2 in VPC
+  Value: !Ref PrivateSubnet2
+  Export:
+    Name: ap-northeast-1c-PrivateSubnet2-ID
+
+
+
+
+
