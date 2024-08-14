@@ -17,7 +17,7 @@ Resources:
   Type: AWS::EC2::SecurityGroup
   Properties:
     GroupDescription: Allow SSH and HTTP access
-    VpcId: !ImportValue VPC
+    VpcId: !ImportValue VPC-ID
     Tags:
         - Key: Name
           Value: !Sub ${NameBase}-ec2
@@ -49,7 +49,7 @@ Resources:
         DeviceIndex: 0
         GroupSet:
         - !Ref EC2SecurityGroup
-        SubnetId: !ImportValue ap-northeast-1a-PublicSubnet1
+        SubnetId: !ImportValue ap-northeast-1a-PublicSubnet1-ID
       Tags:
         - Key: Name
           Value: !Sub ${NameBase}-EC2
@@ -87,11 +87,11 @@ Outputs:
   Description: EC2 instance ID in the VPC
   Value: !Ref EC2
   Export:
-   Name: EC2
+   Name: EC2-ID
 
  EC2SGId:
   Description: SecurityGroupID of the EC2 in the VPC
   Value: !Ref EC2SecurityGroup
   Export:
-   Name: ap-northeast-1a-EC2SecurityGroup
+   Name: EC2SecurityGroup-ID
 

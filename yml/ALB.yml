@@ -11,7 +11,7 @@ Resources:
  TargetGroup: 
   Type: AWS::ElasticLoadBalancingV2::TargetGroup
   Properties: 
-    VpcId: !ImportValue VPC
+    VpcId: !ImportValue VPC-ID
     Name: !Sub ${NameBase}-TargetGroup
     IpAddressType: ipv4
     # ターゲットにトラフィックをルーティングするために使用するプロトコル
@@ -20,7 +20,7 @@ Resources:
     Port: 80
     TargetType: instance
     Targets: 
-      - Id: !ImportValue EC2
+      - Id: !ImportValue EC2-ID
         Port: 80
     # ヘルスチェックを有効化
     HealthCheckEnabled: true
@@ -62,8 +62,8 @@ Resources:
       SecurityGroups:
         - !Ref ALBSecurityGroup
       Subnets: 
-        - !ImportValue ap-northeast-1a-PublicSubnet1
-        - !ImportValue ap-northeast-1c-PublicSubnet2
+        - !ImportValue ap-northeast-1a-PublicSubnet1-ID
+        - !ImportValue ap-northeast-1c-PublicSubnet2-ID
 
  # リスナー設定
  ALBListener: 
@@ -83,7 +83,7 @@ Resources:
  ALBSecurityGroup:
   Type: AWS::EC2::SecurityGroup
   Properties:
-    VpcId: !ImportValue VPC
+    VpcId: !ImportValue VPC-ID
     GroupDescription: Allow HTTP access
     GroupName: !Sub ${NameBase}-ALB-SecurityGroup
     Tags:

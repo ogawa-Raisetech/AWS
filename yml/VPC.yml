@@ -138,31 +138,31 @@ Outputs:
   Description: The ID of the VPC
   Value: !Ref myVPC
   Export:
-    Name: VPC
+    Name: VPC-ID
 
  PublicSubnet1Id:
   Description: publicsubnet ID1 in VPC
   Value: !Ref PublicSubnet1
   Export:
-    Name: ap-northeast-1a-PublicSubnet1
+    Name: ap-northeast-1a-PublicSubnet1-ID
 
  PublicSubnet2Id:
   Description: publicsubnet ID2 in VPC
   Value: !Ref PublicSubnet2
   Export:
-    Name: ap-northeast-1c-PublicSubnet2
+    Name: ap-northeast-1c-PublicSubnet2-ID
 
  PrivateSubnet1Id:
   Description: PrivateSubnet ID1 in VPC
   Value: !Ref PrivateSubnet1
   Export:
-    Name: ap-northeast-1a-PrivateSubnet1
+    Name: ap-northeast-1a-PrivateSubnet1-ID
 
  PrivateSubnet2Id:
   Description: PrivateSubnet ID2 in VPC
   Value: !Ref PrivateSubnet2
   Export:
-    Name: ap-northeast-1c-PrivateSubnet2
+    Name: ap-northeast-1c-PrivateSubnet2-ID
 
 
 
