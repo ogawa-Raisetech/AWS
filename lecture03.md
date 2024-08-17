@@ -5,6 +5,8 @@
 - APサーバーとDBサーバーのサーバー名・バージョンの確認
 - Railsの構成管理ツールの確認
 
+デプロイしたRailsアプリは[こちら](https://github.com/yuta-ushijima/raisetech-live8-sample-app)
+
 ## 学習内容
 
 - アプリの起動を確認
@@ -17,8 +19,7 @@
 ![AP SERVER名](/image/lecture03/AP_SERVER_name.png)
 - puma v6.4.2
 
-- APサーバ停止確認
-　APサーバを終了した場合、引き続きアクセスはできませんでした。
+- APサーバを終了した場合、引き続きアクセスはできませんでした。
 ![AP SERVER 停止確認](/image/lecture03/AP_SERVER_STOP.png)
 
 ## DBサーバ
@@ -29,8 +30,7 @@
 - MySQL v8.4.0
 - Rails の構成管理ツールの名前は"Bundler"
 
-- DBサーバ停止確認
-　DBサーバを終了した場合、引き続きアクセスはできませんでした。
+- DBサーバを終了した場合、引き続きアクセスはできませんでした。
 ![DB SERVER 停止確認](/image/lecture03/DB_SERVER_STOP.png)
 
 ## 感想

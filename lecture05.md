@@ -12,7 +12,8 @@
 ## 学習内容
 
 ## 構成図の作成
-　本課題の構成図が以下となります。以下構成図内のEC2へRailsアプリをデプロイしアプリが動作するように設定しました。
+　本課題の構成図です。以下構成図内のEC2へRailsアプリをデプロイしアプリが動作するように設定しました。
+　
   ![configuration-diagram](/image/lecture05/configuration-diagram.png)
 
 ### 1.組み込みサーバー（Puma）での動作確認
