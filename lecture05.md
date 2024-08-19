@@ -2,9 +2,9 @@
 ## 課題内容
 - EC2上に第3回課題で使用したRailsアプリをデプロイし動作するように設定する
 - 組み込みサーバー ( puma ) でのアプリ動作確認
-- 組み込みサーバーとUnixSocketでのアプリ動作確認
+- 組み込みサーバーとunix domain socketでのアプリ動作確認
 - Nginxの単体起動確認
-- Nginxと組み込みサーバー、UnixSocketを組み合わせての動作確認
+- Nginxと組み込みサーバー、unix domain socketを組み合わせての動作確認
 - ALB経由でのアプリ動作確認
 - S3を追加してアプリに保存した画像がS3に保存されるか
 - 構成図の作成
@@ -21,13 +21,13 @@
 ### 組み込みサーバー（Puma）での動作確認
   ![puma-deploy](/image/lecture05/puma-deploy.png)
 
-### 組み込みサーバーとUnixSocketを使った動作確認
+### 組み込みサーバーとunix domain socketを使った動作確認
   ![puma-unixsocket](/image/lecture05/puma-unixsocket.png)
 
 ### Nginxの単体起動確認
   ![nginx](/image/lecture05/nginx.png)
 
-### Nginxと組み込みサーバー、UnixSocketを組み合わせての動作確認
+### Nginxと組み込みサーバー、unix domain socketを組み合わせての動作確認
   ![puma-unixsocket-nginx](/image/lecture05/puma-unixsocket-nginx.png)
 
 ### ELB（ALB）を追加して動作確認
