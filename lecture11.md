@@ -4,7 +4,7 @@
 * テスト定義には指示された内容はないため、任意で決めた内容を設定して良い
 
 ## 学習内容
-# EC2へServerSpecをインストール
+## EC2へServerSpecをインストール
 ```
 $ gem install serverspec  
 $ mkdir serverspec  
@@ -32,7 +32,7 @@ Vagrant instance y/n: n
 # テストするサーバのホスト名を任意で入力
 Input target host name: target
 ```
-/home/ec2-user/serverspec 下にディレクトリ、ファイルが自動作成される。
+/home/ec2-user/serverspec内にディレクトリ、ファイルが自動作成される。
 ```
 severspec/
 ├─ spec
@@ -43,9 +43,9 @@ severspec/
 └─ .rspec
 ```
 
-# テスト内容の設定
-[sample_spec.rb](/ServerSpec/sample_spec.rb)を以下内容へ設定
-```
+## テスト内容の設定
+[sample_spec.rb](/ServerSpec/sample_spec.rb)へテスト内容を記載
+```rb
 require 'spec_helper'
 
 listen_port = 80
@@ -86,9 +86,10 @@ describe command('curl http://127.0.0.1:#{listen_port}/_plugin/head/ -o /dev/nul
 end
 ```
 
-# 実行結果
+## 実行結果
 ServerSpecの設定を実施したEC2からテスト対象用のEC2へSSH接続後、rake specでテスト実行
+
  ![実行結果](/image/lecture11/picture1.png)
 
 ## 感想
-* 手動で実施すると手間のかかるテスト内容を簡単に実施できるのはすごく楽だと感じました。
+* 手動で実施すると手間のかかるテスト内容を簡単に実施できるのは効率が良いと感じました。
