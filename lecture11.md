@@ -4,7 +4,7 @@
 * テスト定義には指示された内容はないため、任意で決めた内容を設定して良い
 
 ## 学習内容
-## EC2へServerSpecをインストール
+### EC2へServerSpecをインストール
 ```
 $ gem install serverspec  
 $ mkdir serverspec  
@@ -43,7 +43,7 @@ severspec/
 └─ .rspec
 ```
 
-## テスト内容の設定
+### テスト内容の設定
 [sample_spec.rb](/ServerSpec/sample_spec.rb)へテスト内容を記載
 ```rb
 require 'spec_helper'
@@ -86,10 +86,10 @@ describe command('curl http://127.0.0.1:#{listen_port}/_plugin/head/ -o /dev/nul
 end
 ```
 
-## 実行結果
-ServerSpecの設定を実施したEC2からテスト対象用のEC2へSSH接続後、rake specでテスト実行
-
+### 実行結果
+rake specでテストの実行が成功したことを確認
+ ![実行結果](/image/lecture11/picture2.png)
  ![実行結果](/image/lecture11/picture1.png)
 
-## 感想
+### 感想
 * 手動で実施すると手間のかかるテスト内容を簡単に実施できるのは効率が良いと感じました。
