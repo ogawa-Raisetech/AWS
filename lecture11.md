@@ -43,6 +43,20 @@ severspec/
 └─ .rspec
 ```
 
+### SSH接続の設定
+- 新しい公開鍵の作成  
+  `ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub` で公開鍵を作成し、 `~/ssh./authorized_keys` に作成した公開鍵をコピペ。
+
+- `~/.ssh/config` に Host を追加
+```
+Host "target"     # Input target host name: で入力したホスト名                        
+    Hostname "10-0-0-71"   # テスト対象のEC2のプライベートIPアドレスを指定
+    User "ec2-user"
+    IdentityFile "~/.ssh/id_rsa"
+```
+- `~/.ssh/config` の Host で指定した名前を使用して `ssh target` で SSH 接続出来ることを確認
+---
+
 ### テスト内容の設定
 [sample_spec.rb](/ServerSpec/sample_spec.rb)へテスト内容を記載
 ```rb
