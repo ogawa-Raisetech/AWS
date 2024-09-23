@@ -10,8 +10,7 @@ Resources:
   testS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub ${NameBase}-s3bucket
-      AccessControl: Private
+      BucketName: !Sub ${NameBase}-s3bucket-raisetech
       # パブリックアクセスをすべて無効化
       PublicAccessBlockConfiguration:
         BlockPublicAcls: True
@@ -21,4 +20,23 @@ Resources:
       # バージョニング設定
       VersioningConfiguration:
         Status: Enabled
+  
+# S3 Bucket Policy
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref testS3Bucket
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              AWS: 
+                - !ImportValue IAMRoleARN
+            Action:
+              - "s3:GetObject"
+              - "s3:PutObject"
+              - "s3:DeleteObject"
+            Resource: 
+              - !Sub "arn:aws:s3:::${testS3Bucket}/*"
 

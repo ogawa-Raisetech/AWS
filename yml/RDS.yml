@@ -6,21 +6,6 @@ Parameters:
   Type: String
   Default: lecture10
 
- RDSMasterUsername:
-    Description: "RDS Master User Name"
-    Type: String
-    MinLength: 8
-    MaxLength: 128
-    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
- RDSUserPassword:
-# パラメータ値をマスク
-    NoEcho: true
-    Description: "RDS Master User Password"
-    Type: String
-    MinLength: 8
-    MaxLength: 128
-    AllowedPattern: "[a-zA-Z0-9]*"
-
 Resources: 
   # サブネットグループ作成
   RDSSubnetGroup:
@@ -42,14 +27,17 @@ Resources:
       AllocatedStorage: 20
       DBInstanceIdentifier: rdsdbinstance
       Engine: mysql
-      MasterUsername: !Ref RDSMasterUsername
-      MasterUserPassword: !Ref RDSUserPassword
+      MasterUsername: admin
+      MasterUserPassword: "{{resolve:secretsmanager:lecture:SecretString:password}}"
       DeletionProtection: false
       DeleteAutomatedBackups: true
       DBInstanceClass: db.t3.micro
       VPCSecurityGroups:
         - Ref: DBSecurityGroup
-      AvailabilityZone: ap-northeast-1a
+      AvailabilityZone: 
+        Fn::Select: 
+        - 0
+        - Fn::GetAZs: ""
       Port: 3306
       MultiAZ: false
       DBSubnetGroupName: !Ref RDSSubnetGroup

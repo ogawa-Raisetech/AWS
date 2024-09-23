@@ -95,3 +95,8 @@ Outputs:
   Export:
    Name: EC2SecurityGroup-ID
 
+ IAMRoleARN:
+    Description: IAM role arn
+    Value: !GetAtt Role.Arn
+    Export: 
+      Name: IAMRoleARN
