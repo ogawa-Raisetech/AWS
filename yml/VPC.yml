@@ -175,5 +175,3 @@ Outputs:
   Value: !Ref PrivateSubnet2
   Export:
     Name: ap-northeast-1c-PrivateSubnet2-ID
-
-    
