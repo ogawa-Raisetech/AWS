@@ -18,6 +18,7 @@ Resources:
       - Key: Name
         Value: !Sub ${NameBase}-vpc
 
+
 #subnet
  PublicSubnet1:
    Type: AWS::EC2::Subnet
