@@ -18,7 +18,7 @@
 |  9回  |<ul><li>第5回課題のライブコーディング視聴-2|課題なし|
 |  10回 |<ul><li>第5回課題で構築した環境をCloudFormationで構築|[lecture10.md](lecture10.md)|
 |  11回 |<ul><li>ServerSpecを使用してサーバーに対して自動テストを実施し成功させる|[lecture11.md](lecture11.md)|
-|  12回 |未受講|-|
+|  12回 |<ul><li>提供されたCircleCIのサンプルコンフィグを、正しく動作するようにリポジトリに組み込む|[lecture12.md](lecture12.md)|
 |  13回 |未受講|-|
 |  14回 |未受講|-|
 |  15回 |未受講|-|
